@@ -8,7 +8,22 @@ class User extends Component {
     valueAge: this.props.user.age,
     valueCheck: this.props.user.checked
   }
-  
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log('UNSAFE_componentWillReceiveProps',
+      {
+        nextProps,
+        oldProps: this.props
+      }
+    );
+  }
+
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+    console.log(this.props.user);
+    console.log('componentWillUnmount');
+  }
 
   get display() {
     const { user } = this.props

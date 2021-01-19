@@ -1,17 +1,24 @@
 import React, { Component } from 'react'
 import {students} from '../../constants/students'
 import User from './User'
+
 class Users extends Component {
 	state = {
 		students
   }
 
   editRow = (id, isEdit) => {
-    const user = this.state.students.find(user => user.id ===id)
+    // const user = this.state.students.find(user => user.id ===id)
 
+    // user.isEdit = isEdit
+
+    const index = this.state.students.findIndex(user => user.id === id)
+    const user = {...this.state.students[index]}
     user.isEdit = isEdit
+    const newStudents = this.state.students
+    newStudents[index] = user
     this.setState({
-      students: [...this.state.students]
+      students: [...newStudents]
     })
   }
 
@@ -89,17 +96,28 @@ class Users extends Component {
 
     this.state.students.push(item)
     this.setState({
-      students
+      students: [...this.state.students]
     })
   }
 
 
+componentWillMount() {
+  console.log("componentWillMount");
+}
+
+componentDidMount() {
+  console.log('componentDidMount');
+  console.log(document.querySelector('#add-btn'));
+  console.log('componentDidMount');
+}
 	render() {
+    console.log('render');
+    console.log(document.querySelector('#add-btn'));
 		return (
 			<div className="container mt-5">
 				<div className="row mb-3">
 					<div className="col-12 text-right p-0">
-					<button className="btn btn-info mx-2" onClick={this.addNewRecord}>ADD</button>
+					<button className="btn btn-info mx-2" id="add-btn" onClick={this.addNewRecord}>ADD</button>
 					<button className="btn btn-danger" onClick={this.deleteAll}>Delete</button>
 					</div>
 				</div>
